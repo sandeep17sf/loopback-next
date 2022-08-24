@@ -11,6 +11,7 @@ import {
   ResponseDecoratorMetadata,
   ResponseModelOrSpec,
   ResponseObject,
+  ResponsesObject,
 } from './types';
 
 declare type ContentMap = Map<string, ResponseModelOrSpec[]>;
@@ -68,9 +69,9 @@ function reduceSpecContent(
  * Reducer which builds the content sections of the operation responses
  */
 function reduceSpecResponses(
-  specResponses: ResponseObject,
+  specResponses: ResponsesObject,
   [responseCode, c]: [number, {description: string; content: ContentMap}],
-): ResponseObject {
+): ResponsesObject {
   const responseContent = c.content;
   // check if there is an existing block, from something like an inhered @op spec
   if (Object.prototype.hasOwnProperty.call(specResponses, responseCode)) {
@@ -146,7 +147,7 @@ export function buildResponsesFromMetadata(
     ? DecoratorFactory.cloneDeep(existingOperation.responses)
     : {};
   // Now, mega-reduce.
-  const responses: ResponseObject = Array.from(builder).reduce(
+  const responses: ResponsesObject = Array.from(builder).reduce(
     reduceSpecResponses,
     base as ResponseObject,
   );

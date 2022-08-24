@@ -3,7 +3,7 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {SchemaObject} from './types';
+import {SchemaObject, ReferenceObject} from './types';
 
 /**
  * Generate the `type` and `format` property in a Schema Object according to a
@@ -18,7 +18,7 @@ export function resolveSchema(
   fn?: Function,
   schema: SchemaObject = {},
 ): SchemaObject {
-  let resolvedSchema: SchemaObject = {};
+  let resolvedSchema: SchemaObject | ReferenceObject = {};
 
   if (typeof fn === 'function') {
     if (fn === String) {

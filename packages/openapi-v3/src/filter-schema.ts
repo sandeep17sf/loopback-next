@@ -9,9 +9,8 @@ import {
   getWhereJsonSchemaFor,
   Model,
 } from '@loopback/repository-json-schema';
-import {isSchemaObject} from 'openapi3-ts';
-import {jsonToSchemaObject} from './json-to-schema';
-import {SchemaObject} from './types';
+import {jsonToSchemaObject, SchemaRef} from './json-to-schema';
+import {SchemaObject, isSchemaObject} from './types';
 
 /**
  * Build an OpenAPI schema describing the format of the "filter" object
@@ -26,7 +25,7 @@ import {SchemaObject} from './types';
 export function getFilterSchemaFor(
   modelCtor: typeof Model,
   options?: FilterSchemaOptions,
-): SchemaObject {
+): SchemaObject | SchemaRef {
   const jsonSchema = getFilterJsonSchemaFor(modelCtor, options);
   const schema = jsonToSchemaObject(jsonSchema);
   if (isSchemaObject(schema)) {
@@ -46,7 +45,9 @@ export function getFilterSchemaFor(
  *
  * @param modelCtor - The model constructor to build the filter schema for.
  */
-export function getWhereSchemaFor(modelCtor: typeof Model): SchemaObject {
+export function getWhereSchemaFor(
+  modelCtor: typeof Model,
+): SchemaObject | SchemaRef {
   const jsonSchema = getWhereJsonSchemaFor(modelCtor);
   const schema = jsonToSchemaObject(jsonSchema);
   if (isSchemaObject(schema)) {

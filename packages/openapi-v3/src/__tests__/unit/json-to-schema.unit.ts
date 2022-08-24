@@ -63,7 +63,7 @@ describe('jsonToSchemaObject', () => {
     const definitionsDef: JsonSchema = {
       definitions: {foo: typeDef, bar: typeDef},
     };
-    const expectedDef: SchemaObject = {
+    const expectedDef: JsonSchema = {
       definitions: {foo: expectedType, bar: expectedType},
     };
     propertyConversionTest(definitionsDef, expectedDef);
